@@ -24,4 +24,34 @@ public class UserService {
         Optional<User> user = userRepository.findByUsername(username);
         return user.isPresent() && user.get().getPassword().equals(password);
     }
+
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.setUsername(userDTO.getUsername());
+            user.setPassword(userDTO.getPassword());
+            user = userRepository.save(user);
+            return new UserDTO(user.getId(), user.getUsername(), user.getPassword());
+        }
+        return null;
+    }
+
+    public boolean deleteUser(Long id) {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public UserDTO getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            User foundUser = user.get();
+            return new UserDTO(foundUser.getId(), foundUser.getUsername(), foundUser.getPassword());
+        }
+        return null;
+    }
 }
