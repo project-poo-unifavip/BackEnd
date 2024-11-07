@@ -1,4 +1,4 @@
-package com.estoque.estoquejava.controller;
+package com.estoque.estoquejava.controllers;
 
 import com.estoque.estoquejava.dto.ProductsDTO;
 import com.estoque.estoquejava.service.ProductsService;
@@ -15,17 +15,24 @@ public class RegisterController {
     @Autowired
     private ProductsService productsService;
 
+    // Endpoint para adicionar um novo produto
     @PostMapping
     public ResponseEntity<ProductsDTO> addProduct(@RequestBody ProductsDTO productsDTO) {
         ProductsDTO createdProduct = productsService.addProduct(productsDTO);
         return ResponseEntity.ok(createdProduct);
     }
 
-    @GetMapping
+    // Endpoint para buscar todos os produtos
+    @GetMapping("/all")
     public ResponseEntity<List<ProductsDTO>> getAllProducts() {
-        return ResponseEntity.ok(productsService.getAllProducts());
+        List<ProductsDTO> products = productsService.getAllProducts();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Retorna 204 caso não haja produtos
+        }
+        return ResponseEntity.ok(products); // Retorna 200 com a lista de produtos
     }
 
+    // Endpoint para buscar um produto pelo código
     @GetMapping("/{productCode}")
     public ResponseEntity<ProductsDTO> getProductByCode(@PathVariable String productCode) {
         return productsService.findProductByCode(productCode)
