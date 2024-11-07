@@ -1,18 +1,19 @@
 package com.estoque.estoquejava.dto;
 
-import java.math.BigDecimal;
-
 public class ProductsDTO {
+
     private Long id;
     private String productCode;
-    private BigDecimal unitCost;
-    private BigDecimal profitMargin;
+    private String name;  // Nome do produto
+    private String category;  // Categoria do produto
+    private Double unitCost;
+    private Double profitMargin;
 
-    public ProductsDTO() {}
-
-    public ProductsDTO(Long id, String productCode, BigDecimal unitCost, BigDecimal profitMargin) {
+    public ProductsDTO(Long id, String productCode, String name, String category, Double unitCost, Double profitMargin) {
         this.id = id;
         this.productCode = productCode;
+        this.name = name;
+        this.category = category;
         this.unitCost = unitCost;
         this.profitMargin = profitMargin;
     }
@@ -33,19 +34,35 @@ public class ProductsDTO {
         this.productCode = productCode;
     }
 
-    public BigDecimal getUnitCost() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Double getUnitCost() {
         return unitCost;
     }
 
-    public void setUnitCost(BigDecimal unitCost) {
+    public void setUnitCost(Double unitCost) {
         this.unitCost = unitCost;
     }
 
-    public BigDecimal getProfitMargin() {
+    public Double getProfitMargin() {
         return profitMargin;
     }
 
-    public void setProfitMargin(BigDecimal profitMargin) {
+    public void setProfitMargin(Double profitMargin) {
         this.profitMargin = profitMargin;
     }
 }

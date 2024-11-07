@@ -16,19 +16,45 @@ public class ProductsService {
     private ProductsRepository productsRepository;
 
     public ProductsDTO addProduct(ProductsDTO productsDTO) {
-        Products product = new Products(productsDTO.getProductCode(), productsDTO.getUnitCost(), productsDTO.getProfitMargin());
+        Products product = new Products(
+                productsDTO.getProductCode(),
+                productsDTO.getName(),  // Nome do produto
+                productsDTO.getCategory(),  // Categoria do produto
+                productsDTO.getUnitCost(),
+                productsDTO.getProfitMargin()
+        );
         product = productsRepository.save(product);
-        return new ProductsDTO(product.getId(), product.getProductCode(), product.getUnitCost(), product.getProfitMargin());
+        return new ProductsDTO(
+                product.getId(),
+                product.getProductCode(),
+                product.getName(),  // Retornando nome
+                product.getCategory(),  // Retornando categoria
+                product.getUnitCost(),
+                product.getProfitMargin()
+        );
     }
 
     public List<ProductsDTO> getAllProducts() {
         return productsRepository.findAll().stream()
-                .map(product -> new ProductsDTO(product.getId(), product.getProductCode(), product.getUnitCost(), product.getProfitMargin()))
+                .map(product -> new ProductsDTO(
+                        product.getId(),
+                        product.getProductCode(),
+                        product.getName(),  // Incluindo nome
+                        product.getCategory(),  // Incluindo categoria
+                        product.getUnitCost(),
+                        product.getProfitMargin()))
                 .toList();
     }
 
     public Optional<ProductsDTO> findProductByCode(String productCode) {
         return productsRepository.findByProductCode(productCode)
-                .map(product -> new ProductsDTO(product.getId(), product.getProductCode(), product.getUnitCost(), product.getProfitMargin()));
+                .map(product -> new ProductsDTO(
+                        product.getId(),
+                        product.getProductCode(),
+                        product.getName(),  // Incluindo nome
+                        product.getCategory(),  // Incluindo categoria
+                        product.getUnitCost(),
+                        product.getProfitMargin()
+                ));
     }
 }

@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        boolean isValid = userService.validateLogin(username, password);
+    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+        boolean isValid = userService.validateLogin(userDTO.getUsername(), userDTO.getPassword());
         if (isValid) {
             return ResponseEntity.ok("Login successful");
         } else {

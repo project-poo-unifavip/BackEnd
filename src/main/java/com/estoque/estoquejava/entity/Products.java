@@ -15,21 +15,36 @@ public class Products {
     private String productCode;
 
     @Column(nullable = false)
-    private BigDecimal unitCost;
+    private String name;
 
     @Column(nullable = false)
-    private BigDecimal profitMargin;
+    private String category;
 
-    public Products() {}
+    @Column(nullable = false)
+    private Double unitCost;  // Agora é Double
 
-    public Products(String productCode, BigDecimal unitCost, BigDecimal profitMargin) {
+    @Column(nullable = false)
+    private Double profitMargin;  // Agora é Double
+
+    // Construtor para aceitar Double em vez de BigDecimal
+    public Products(String productCode, String name, String category, Double unitCost, Double profitMargin) {
         this.productCode = productCode;
+        this.name = name;
+        this.category = category;
         this.unitCost = unitCost;
         this.profitMargin = profitMargin;
     }
 
+    public Products() {
+
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProductCode() {
@@ -40,19 +55,35 @@ public class Products {
         this.productCode = productCode;
     }
 
-    public BigDecimal getUnitCost() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Double getUnitCost() {
         return unitCost;
     }
 
-    public void setUnitCost(BigDecimal unitCost) {
+    public void setUnitCost(Double unitCost) {
         this.unitCost = unitCost;
     }
 
-    public BigDecimal getProfitMargin() {
+    public Double getProfitMargin() {
         return profitMargin;
     }
 
-    public void setProfitMargin(BigDecimal profitMargin) {
+    public void setProfitMargin(Double profitMargin) {
         this.profitMargin = profitMargin;
     }
 }
